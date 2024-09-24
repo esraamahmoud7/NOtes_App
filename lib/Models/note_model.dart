@@ -1,8 +1,7 @@
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'note_model.g.dart';
-@JsonSerializable()
+import 'note_model.g.dart';
+
 @HiveField(0)
 class NoteModel extends HiveObject
 {

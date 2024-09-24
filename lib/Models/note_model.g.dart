@@ -1,21 +1,47 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
-part of 'note_model.dart';
+import 'note_model.dart';
 
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
+class NoteModelAdapter extends TypeAdapter<NoteModel> {
+  @override
+  final int typeId = 0;
 
-NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
-      title: json['title'] as String,
-      subTitle: json['subTitle'] as String,
-      date: json['date'] as String,
-      color: (json['color'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
-      'title': instance.title,
-      'subTitle': instance.subTitle,
-      'date': instance.date,
-      'color': instance.color,
+  @override
+  NoteModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+    return NoteModel(
+      title: fields[0] as String,
+      subTitle: fields[1] as String,
+      date: fields[2] as String,
+      color: fields[3] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, NoteModel obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.title)
+      ..writeByte(1)
+      ..write(obj.subTitle)
+      ..writeByte(2)
+      ..write(obj.date)
+      ..writeByte(3)
+      ..write(obj.color);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is NoteModelAdapter &&
+              runtimeType == other.runtimeType &&
+              typeId == other.typeId;
+}
