@@ -1,75 +1,51 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notesapp/cubits/add_note_cubit/Add_Notes_Cubit.dart';
+import 'package:notesapp/cubits/add_note_cubit/add_notes_states.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'add_note_form.dart';
 
-import 'CustomButton.dart';
-import 'Custom_Text_Field.dart';
-class AddNoteButtonSheet extends StatelessWidget {
-  const AddNoteButtonSheet({super.key});
+class AddNoteButtonSheet extends StatefulWidget {
+   const AddNoteButtonSheet({super.key});
 
+  @override
+  State<AddNoteButtonSheet> createState() => _AddNoteButtonSheetState();
+}
 
+class _AddNoteButtonSheetState extends State<AddNoteButtonSheet> {
+  bool isLoading=false;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 16.0),
+    return  Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: SingleChildScrollView(
-        child: AddNoteForm(),
+        child: BlocConsumer<AddNoteCubit, AddNoteStates>(
+          listener: (context, state) {
+            if(state is AddNotesLoading)
+              {
+                isLoading=true;
+              }
+            else if(state is AddNotesFailure)
+              {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${state.errorMessage} , try again!!")),);
+
+              }
+            else if(state is AddNotesSuccess)
+              {
+                Navigator.pop(context);
+              }
+          },
+          builder: (context, state) {
+            return ModalProgressHUD
+              (
+                inAsyncCall: isLoading,
+                child: const AddNoteForm()
+            );
+          },
+        ),
       ),
     );
   }
 }
-
-class AddNoteForm extends StatefulWidget {
-  const AddNoteForm({
-    super.key,
-  });
-
-  @override
-  State<AddNoteForm> createState() => _AddNoteFormState();
-}
-
-class _AddNoteFormState extends State<AddNoteForm> {
-
-  final GlobalKey<FormState> formKey=GlobalKey();
-  AutovalidateMode autoValidateMode=AutovalidateMode.disabled;
-  String? title,subTitle;
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      autovalidateMode: autoValidateMode,
-      child: Column(
-          children: [
-            const SizedBox(height: 32,),
-            CustomText(hint:"Title",onSaved: (value)
-              {
-                title=value;
-              },),
-            const SizedBox(height: 16,),
-            CustomText(hint:"Content",onSaved: (value)
-              {
-                subTitle=value;
-              },maxLine: 5,),
-            const SizedBox(height: 32,),
-            CustomButton(
-              OnTap: ()
-              {
-                if(formKey.currentState!.validate())
-                  {
-                    formKey.currentState!.save();
-                  }
-                else
-                  {
-                    autoValidateMode=AutovalidateMode.always;
-                    setState(() {});
-                  }
-              },
-            ),
-            const SizedBox(height: 32,)
-          ],
-      ),
-    );
-  }
-}
-
-
