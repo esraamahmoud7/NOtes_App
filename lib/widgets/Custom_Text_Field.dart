@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notesapp/widgets/Constants.dart';
+import 'package:notesapp/Constants.dart';
 class CustomText extends StatelessWidget {
   const CustomText({super.key,required this.hint, this.maxLine=1, this.onSaved});
 

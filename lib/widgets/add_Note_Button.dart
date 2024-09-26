@@ -19,8 +19,7 @@ class _AddNoteButtonSheetState extends State<AddNoteButtonSheet> {
   Widget build(BuildContext context) {
     return  Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: SingleChildScrollView(
-        child: BlocConsumer<AddNoteCubit, AddNoteStates>(
+      child: BlocConsumer<AddNoteCubit, AddNoteStates>(
           listener: (context, state) {
             if(state is AddNotesLoading)
               {
@@ -41,11 +40,11 @@ class _AddNoteButtonSheetState extends State<AddNoteButtonSheet> {
             return ModalProgressHUD
               (
                 inAsyncCall: isLoading,
-                child: const AddNoteForm()
+                child: SingleChildScrollView(
+                    child: AddNoteForm())
             );
           },
         ),
-      ),
     );
   }
 }
