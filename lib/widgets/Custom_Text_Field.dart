@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notesapp/Constants.dart';
 class CustomText extends StatelessWidget {
-  const CustomText({super.key,required this.hint, this.maxLine=1, this.onSaved});
+  const CustomText({super.key,required this.hint, this.maxLine=1, this.onSaved, this.onChanged});
 
   final String hint;
   final int maxLine;
-  final void Function(String?)? onSaved;
+  final void Function(String?)? onSaved,onChanged;
 
   @override
   Widget build(BuildContext context) {
     return  TextFormField
     (
+      onChanged: onChanged,
       onSaved: onSaved,
       validator: (value){
         if(value?.isEmpty ?? true)
