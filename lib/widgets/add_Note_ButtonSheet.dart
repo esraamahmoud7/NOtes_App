@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notesapp/cubits/add_note_cubit/Add_Notes_Cubit.dart';
 import 'package:notesapp/cubits/add_note_cubit/add_notes_states.dart';
+import 'package:notesapp/cubits/notes_cubit/notesCubit.dart';
 
 import 'add_note_form.dart';
 
@@ -30,6 +31,7 @@ class _AddNoteButtonSheetState extends State<AddNoteButtonSheet> {
                   content: Text("${state.errorMessage} , try again!!")),);
             }
             else if (state is AddNotesSuccess) {
+              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
               Navigator.pop(context);
             }
           },

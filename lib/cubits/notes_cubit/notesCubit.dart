@@ -16,6 +16,7 @@ class NotesCubit extends Cubit<NoteStates>
         var NotesBox=Hive.box<NoteModel>(KNotesBox);
         //NotesBox.values.toList() not future so not need emit(NotesLoading)
         notes=NotesBox.values.toList();
+        emit(NotesSuccess());
    }
 
 
