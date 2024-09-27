@@ -18,4 +18,6 @@ class NotesCubit extends Cubit<NoteStates>
         notes=NotesBox.values.toList();
    }
 
+
+
 }

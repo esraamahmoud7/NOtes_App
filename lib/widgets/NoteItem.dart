@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notesapp/Models/note_model.dart';
-import 'package:intl/intl.dart';
 import '../views/EditView.dart';
 class Note_Item extends StatelessWidget {
   const Note_Item({super.key, required this.note});
@@ -33,7 +32,9 @@ class Note_Item extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16,bottom: 16),
                 child: Text(note.subTitle,style: TextStyle(color: Colors.black.withOpacity(0.5),fontSize: 18),),
               ),
-              trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete),color: Colors.black,iconSize: 34,),
+              trailing: IconButton(onPressed: (){
+                note.delete();
+              }, icon: const Icon(Icons.delete),color: Colors.black,iconSize: 34,),
             ),
             Padding(
                 padding: const EdgeInsets.only(right: 24),
