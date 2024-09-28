@@ -5,6 +5,7 @@ import 'package:notesapp/cubits/add_note_cubit/Add_Notes_Cubit.dart';
 
 import '../Models/note_model.dart';
 import '../cubits/add_note_cubit/add_notes_states.dart';
+import 'ColorsWidget.dart';
 import 'CustomButton.dart';
 import 'Custom_Text_Field.dart';
 
@@ -24,6 +25,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   String? title, subTitle;
 
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -39,7 +41,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
           CustomText(hint: "Content", onSaved: (value) {
             subTitle = value;
           }, maxLine: 5,),
-          const SizedBox(height: 32,),
+          SizedBox(height: 15,),
+          ColorListView(),
+          const SizedBox(height: 20,),
           BlocBuilder<AddNoteCubit, AddNoteStates>(
             builder: (context, state) {
               return CustomButton(
@@ -70,5 +74,3 @@ class _AddNoteFormState extends State<AddNoteForm> {
     );
   }
 }
-
-
